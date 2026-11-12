@@ -1,0 +1,12 @@
+function init(self)
+	self.angulo = 0  -- em radianos
+end
+
+function update(self, dt)
+	-- Aumentar o ângulo (math.pi/2 = 90° por segundo)
+	self.angulo = self.angulo + (math.pi / 2) * dt
+
+	-- Aplicar a rotação no eixo Y
+	local rot = vmath.quat_rotation_y(self.angulo)
+	go.set_rotation(rot)
+end

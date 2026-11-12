@@ -1,0 +1,17 @@
+function init(self)
+	self.angulo = 0
+end
+
+function update(self,dt)
+	local pos = go.get_position()
+	pos.x = pos.x - 3 * dt
+
+	if pos.x < -8 then
+		pos.x = 8
+	end
+	go.set_position(pos)
+
+	self.angulo = self.angulo + (math.pi/4) * dt
+	local rot = vmath.quat_rotation_z(self.angulo)
+	go.set_rotation(rot)
+end

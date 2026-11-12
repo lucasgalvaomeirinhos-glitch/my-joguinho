@@ -1,0 +1,66 @@
+local VEL = 6
+local LIMITE_X = 4.5
+local LIMITE_Y = 3.0
+local TILT_MAX = 20
+
+function init(self)
+	msg.post("", "acquire_input_focus")
+	self.direcao = vmath.vector3()
+	self.velocidade = VEL
+	self.boost_ativo = false
+	self.cooldown_timer = 0
+	self.boost_ativo = false
+	self.boost_ready = true
+end
+function update(self, dt)
+	if vmath.length(self.direcao) > 0 then
+		self.direcao = vmath.normalize(self.direcao)
+	end
+	if not self.boost_ready and not self.boost_ativo then
+		self.cooldown_timer = self.cooldown_timer - dt
+		if self.cooldown_timer <= 0 then
+			self.boost_ready = true
+		end
+	end
+	local pos = go.get_position()
+	pos = pos + self.direcao * self.velocidade * dt
+	pos.x = math.max(-LIMITE_X, math.min(LIMITE_X, pos.x))
+	pos.y = math.max(-LIMITE_Y, math.min(LIMITE_Y, pos.y))
+	go.set_position(pos)
+
+	-- Inclinação visual
+	local tilt = -self.direcao.x * TILT_MAX
+	local rot = vmath.quat_rotation_z(math.rad(tilt))
+	go.set_rotation(rot)
+
+	self.direcao = vmath.vector3(0, 0, 0)
+end
+function on_input(self, action_id, action)
+if action_id == hash("left") then
+	self.direcao.x = -1
+elseif action_id == hash("right") then
+	self.direcao.x = 1
+elseif action_id == hash("up") then
+	self.direcao.y = 1
+elseif action_id == hash("down") then
+	self.direcao.y = -1
+end
+if action_id == hash("boost") then
+	if self.boost_ready == true then
+		self.boost_ativo = true
+		self.boost_ready = false
+		self.velocidade = 15
+		print("boost started")
+		timer.delay(5, false, function()
+			self.velocidade = 6
+			self.boost_ativo = false
+			self.cooldown_timer = 5
+			print(" Boost ended.") end)
+	else
+		print("Boost not ready")
+		end
+	end
+end
+function final(self)
+	msg.post(".","release_input_focus")
+end

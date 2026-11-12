@@ -1,0 +1,53 @@
+local INTERVALO_SPAWN = 1.5
+local RANGE_X = 4.5
+local RANGE_Y = 3.0
+local Z_SPAWN = -25
+
+
+function init(self)
+	self.timer_spawn = 0
+	self.pontuação = 0 
+	self.vidas = 3
+	self.timer_pontos = 0
+	self.jogo.ativo = true
+	print("Jog Iniciado")
+end
+
+function update(self.dt)
+	if not self.jogo_ativo then return end
+
+
+	self.timer_spawn = self.timer_spawn + dt
+	if self.timer_spawn >= INTERVALO_SPAWN then
+		self.timer_spaw = 0
+		spawnar_asteroide(self)
+end
+
+
+
+	self.timer_pontos = self.timer_pontos + dt
+	if self.timer_pontos >= 1 then
+		self.timer_pontos = 0
+		self.pontuacao = self.pontuacao + 1
+		print("Pontuação : " .. self.pontuacao)
+	end
+end
+
+function spawnar_asteroide(self)
+
+	local x = math.random(-RANGE_X * 10, RANGE_X * 10) / 10
+	local y = math.random(-RANGE_Y * 10, RANGE_Y * 10) / 10
+	local pos = vmath.vector3(x, y, Z_SPAWN)
+
+
+	factory.crate("#factory", pos)
+end
+
+function on_messange(self, messange_id, message, sender)
+	if messange_id == hash("colisao_nave") then
+		self.vidas = self.vidas - 1
+		print("Vidas restantes: " .. self.vidas)
+
+		if self.vidas <= 0 then
+			self.jogo_ativo = false
+			print("GAME OVER! Pontuação: " .. self.pontuacao)

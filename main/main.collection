@@ -1,0 +1,125 @@
+name: "main"
+scale_along_z: 0
+embedded_instances {
+  id: "Nave"
+  data: "components {\n"
+  "  id: \"nave\"\n"
+  "  component: \"/main/scripts/nave.script\"\n"
+  "}\n"
+  "embedded_components {\n"
+  "  id: \"model\"\n"
+  "  type: \"model\"\n"
+  "  data: \"mesh: \\\"/main/models/nave.glb\\\"\\n"
+  "name: \\\"{{NAME}}\\\"\\n"
+  "materials {\\n"
+  "  name: \\\"Ultra-realistic_Spaceship_mat\\\"\\n"
+  "  material: \\\"/builtins/materials/model.material\\\"\\n"
+  "  textures {\\n"
+  "    sampler: \\\"tex0\\\"\\n"
+  "    texture: \\\"/main/models/nave.png\\\"\\n"
+  "  }\\n"
+  "}\\n"
+  "\"\n"
+  "}\n"
+  ""
+}
+embedded_instances {
+  id: "Camera"
+  data: "components {\n"
+  "  id: \"camera1\"\n"
+  "  component: \"/main/scripts/camera.script\"\n"
+  "}\n"
+  "embedded_components {\n"
+  "  id: \"camera\"\n"
+  "  type: \"camera\"\n"
+  "  data: \"aspect_ratio: 1.0\\n"
+  "fov: 1.047\\n"
+  "near_z: 0.1\\n"
+  "far_z: 1000.0\\n"
+  "\"\n"
+  "}\n"
+  ""
+  position {
+    y: 3.0
+    z: 12.0
+  }
+  rotation {
+    x: -0.13052619
+    w: 0.9914449
+  }
+}
+embedded_instances {
+  id: "Rocha1"
+  data: "components {\n"
+  "  id: \"rocha\"\n"
+  "  component: \"/main/scripts/rocha.script\"\n"
+  "}\n"
+  "embedded_components {\n"
+  "  id: \"model\"\n"
+  "  type: \"model\"\n"
+  "  data: \"mesh: \\\"/main/models/asteroid.glb\\\"\\n"
+  "name: \\\"{{NAME}}\\\"\\n"
+  "materials {\\n"
+  "  name: \\\"Realistic_Red_Asteroid_mat\\\"\\n"
+  "  material: \\\"/builtins/materials/model.material\\\"\\n"
+  "  textures {\\n"
+  "    sampler: \\\"tex0\\\"\\n"
+  "    texture: \\\"/main/models/asteroid.png\\\"\\n"
+  "  }\\n"
+  "}\\n"
+  "\"\n"
+  "}\n"
+  ""
+  position {
+    x: -3.0
+    z: 5.0
+  }
+}
+embedded_instances {
+  id: "Rocha2"
+  data: "components {\n"
+  "  id: \"rocha\"\n"
+  "  component: \"/main/scripts/rocha.script\"\n"
+  "}\n"
+  "embedded_components {\n"
+  "  id: \"model\"\n"
+  "  type: \"model\"\n"
+  "  data: \"mesh: \\\"/main/models/asteroid.glb\\\"\\n"
+  "name: \\\"{{NAME}}\\\"\\n"
+  "materials {\\n"
+  "  name: \\\"Realistic_Red_Asteroid_mat\\\"\\n"
+  "  material: \\\"/builtins/materials/model.material\\\"\\n"
+  "  textures {\\n"
+  "    sampler: \\\"tex0\\\"\\n"
+  "    texture: \\\"/main/models/asteroid.png\\\"\\n"
+  "  }\\n"
+  "}\\n"
+  "\"\n"
+  "}\n"
+  ""
+  position {
+    x: 3.0
+    z: -5.0
+  }
+}
+embedded_instances {
+  id: "Asteroide"
+  data: "embedded_components {\n"
+  "  id: \"model\"\n"
+  "  type: \"model\"\n"
+  "  data: \"mesh: \\\"/main/models/asteroid.glb\\\"\\n"
+  "name: \\\"{{NAME}}\\\"\\n"
+  "\"\n"
+  "}\n"
+  ""
+}
+embedded_instances {
+  id: "spawner"
+  data: "embedded_components {\n"
+  "  id: \"factory\"\n"
+  "  type: \"factory\"\n"
+  "  data: \"prototype: \\\"/main/colections/asteroide.go\\\"\\n"
+  "\"\n"
+  "}\n"
+  ""
+}
